@@ -1,0 +1,73 @@
+{
+    "metaDataVersion": "1.0.0",
+    "category": "com.microchip.ide.project",
+    "content": {
+        "metaDataVersion": "1.1.0",
+        "name": "com.microchip.mcu8.mplabx.project.<YOUR MPLAB PROJECT NAME>",
+        "version": "1.0.0",
+        "displayName": "Quadrature Decoder with PIC18F16Q40",
+        "projectName": "pic18f16q40-quadrature-decoder",
+        "shortDescription": "A simple quadrature decoder using mostly peripherals",
+        "ide": {
+            "name": "MPLABX",
+            "semverRange": ">=5.40.0"
+        },
+        "compiler": [
+			{
+				"name": "XC8",
+				"semverRange": "^2.20.0"
+			}
+		],
+        "dfp": {
+            "name": "PIC18F-Q_DFP",
+            "semverRange": "^1.5.124"
+        },
+        "configurator": {
+            "name": "MCC",
+            "semverRange": ">=3.95.0"
+        },
+        "device": {
+            "metaDataVersion": "1.0.0",
+            "category": "com.microchip.portal.contentRef",
+            "content": {
+                "metaDataVersion": "1.0.0",
+                "category": "com.microchip.device",
+                "name": "PIC18F16Q41",
+                "versionRange": "*"
+            }
+        },
+        "author": "Microchip",
+        "subcategories": [
+            "MCC",
+            [
+               "Peripherals", "CLC"
+            ],
+            [
+               "Peripherals", "TMR1"
+            ],
+            [
+               "Peripherals", "TMR2"
+            ],
+            [
+               "Peripherals", "TMR3"
+            ]
+        ],
+        "peripherals": [
+            "CLC", "TMR2", "TMR1", "TMR3"
+        ],
+        "keywords": [
+            " "
+        ],
+		"additionalData": {
+			"longDescription": {
+				"metaDataVersion": "1.0.0",
+				"category": "com.microchip.portal.fileRef",
+				"content": {
+					"metaDataVersion": "1.0.0",
+					"fileName": "./README.md",
+					"mimeType": "text/markdown"
+				}
+			}
+		}
+	}
+}
