@@ -47,7 +47,7 @@ The LED bar graph is a graphical "volume" styled output. Each bar in the display
 
 The quadrature decoder takes 2 inputs - A and B - that are out-of-phase by 90 degrees. One of the inputs is considered a reference waveform, for which the phase is measured against. The other waveform determines the direction based on if it leads or lags the reference, as shown below.
 
-![Example Waveform](./images/ExampleWaveform.png)
+![Example Waveform](./images/exampleWaveform.png)
 
 This phase difference can be exploited by using the Configurable Logic Cells (CLCs) on the PIC18F16Q40 in JK Flip-Flop mode. The JK flip-flop is a clocked gate - meaning that it only applies the inputs (J and K) to the output (Q) on the rising edge of the clock. The truth table for the JK Flip-Flop is reproduced below.
 
