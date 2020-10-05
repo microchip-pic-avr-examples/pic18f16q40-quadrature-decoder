@@ -5,6 +5,10 @@ This code example creates a simple quadrature decoder implementation on the PIC1
 
 ## Related Documentation
 
+* [Datasheet for PIC18F16Q40 Devices](#)
+* [AN2434, Interfacing Quadrature Encoder using CCL with TCA and TCB](http://www.microchip.com//wwwAppNotes/AppNotes.aspx?appnote=en599697)
+* [Quadrature Encoder Example on AVR DB](https://github.com/microchip-pic-avr-examples/avr128db48-quadrature-decoder.git)
+
 ## Software Used
 
 * [MPLAB X v5.40](https://www.microchip.com/mplab/mplab-x-ide)
@@ -16,13 +20,25 @@ This code example creates a simple quadrature decoder implementation on the PIC1
 
 ## Hardware Used
 
-* [PIC18F16Q40 Curiosity Nano (PN: )](#)
+* [PIC18F16Q40 Curiosity Nano (PN: EV70C97A)](#)
 * [PIC18F16Q40 Curiosity LPC, Rev 4 (PN: DM164137)](#https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/DM164137)
-
+* [PIC18F16Q40 Device Information](https://www.microchip.com/wwwproducts/en/PIC18F16Q40)
+* Incremental Encoder
 
 ## Setup
 
+| Pin Name | Function
+| -------- | --------
+| RA2      | UART TX Output
+| RB6      | Encoder "A" Input
+| RB7      | Encoder "B" Input
+| RC7-RC0  | LED "Volume" Outputs
 
+Note: To Reverse Direction, Swap "A" and "B" lines on the encoder.
+
+### Encoder Wiring and Setup
+
+Depending on the encoder, the specific circuit required for it may vary. The manufacturer of the device will specify the circuits required for proper operation.
 
 ## Operation
 
@@ -41,11 +57,20 @@ After setting these options, press apply then "connect" to the COM port. In the 
 
 ### LED Bar Graph Output
 
-The LED bar graph is a graphical "volume" styled output. Each bar in the display represents 10 - with 100 being the "loudest". Implementing this as a linear function (ie: each encoder pulse is up or down by 1) is trivial, however this can make it slow to apply sudden changes. To get around this problem, a simple sliding scale was implemented. After a certain threshold of pulses, each subsequent pulse is counted as more than 1. Due to variations in encoder parameters, this will have to be tweaked per encoder to find the right balance of speed and accuracy.
+The LED bar graph is a graphical "volume" styled output. Each bar in the display represents 10 - with 100 being the "loudest". The control options macros in the program can be used to set the way the "volume" is modified by the encoder.
+
+
+Due to differences in encoder parameters, some of the constants will have to be tweaked to find the right balance of speed and accuracy.
+
+#### Control options
+
+* Linear Output - Each pulse from the encoder is counted as 1
+* Stepped Function - Stepwise function for pulse counting
+* 1 Rotation - Each rotation is worth 100%
 
 ## Theory of Operation
 
-The quadrature decoder takes 2 inputs - A and B - that are out-of-phase by 90 degrees. One of the inputs is considered a reference waveform, for which the phase is measured against. The other waveform determines the direction based on if it leads or lags the reference, as shown below.
+The quadrature decoder takes 2 inputs, A and B, that are out-of-phase by 90 degrees. One of the inputs is considered a reference waveform, for which the phase is measured against. The other waveform determines the direction based on if it leads or lags the reference, as shown below.
 
 ![Example Waveform](./images/exampleWaveform.png)
 
