@@ -16,6 +16,8 @@ This code example creates a simple quadrature decoder implementation on the PIC1
 
 ## Hardware Used
 
+* [PIC18F16Q40 Curiosity Nano (PN: )](#)
+* [PIC18F16Q40 Curiosity LPC, Rev 4 (PN: DM164137)](#https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/DM164137)
 
 
 ## Setup
@@ -43,11 +45,22 @@ The LED bar graph is a graphical "volume" styled output. Each bar in the display
 
 ## Theory of Operation
 
-The quadrature decoder takes 2 inputs - A and B - that are out-of-phase by 90 degrees. One of the inputs is considered a reference waveform, for which the phase is measured against. The other waveform determines the direction based on if it leads or lags the reference. This phase difference can be exploited by using the Configurable Logic Cells (CLCs) on the PIC18F16Q40 in JK Flip-Flop mode.
+The quadrature decoder takes 2 inputs - A and B - that are out-of-phase by 90 degrees. One of the inputs is considered a reference waveform, for which the phase is measured against. The other waveform determines the direction based on if it leads or lags the reference, as shown below.
 
-The JK flip-flop is a clocked gate - meaning that it only applies the input (J) to the output (Q) on the rising edge of the clock. The reset lines operates asynchronously - if the line is high, then Q immediately goes to 0. In the cell, one of the lines (A or B) is used as a clock line while the other is used as the input to set and clear the flip-flop, as shown below.
+![Example Waveform](./images/ExampleWaveform.png)
 
-**IMAGE**
+This phase difference can be exploited by using the Configurable Logic Cells (CLCs) on the PIC18F16Q40 in JK Flip-Flop mode. The JK flip-flop is a clocked gate - meaning that it only applies the inputs (J and K) to the output (Q) on the rising edge of the clock. The truth table for the JK Flip-Flop is reproduced below.
+
+| J   | K   | Q
+| --- | --- | ---
+| 0   | 0   | Q
+| 0   | 1   | 0
+| 1   | 0   | 1
+| 1   | 1   | ~Q
+
+The reset lines in this implementation operate asynchronously - if the line is high, then Q immediately goes to 0. In the cell, one of the lines (A or B) is used as a clock line while the other is used as the input to set and clear the flip-flop, as shown below.
+
+![CLC Implementation](./images/CLC_Implementation.png)
 
 There are 2 CLCs used in this project, with the only difference being that A and B are swapped between the two. Swapping A and B causes one of the CLCs to see the input lag while the other sees the input lead. In a JK flip-flop, J must be high when the clock is rising in order to set the output high. The only flip-flop that will be set is the configuration where the input leads the clock signal, as shown in the images below.
 
