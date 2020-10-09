@@ -1,13 +1,13 @@
 <a href="https://www.microchip.com" rel="nofollow"><img src="images/microchip.png" alt="MCHP" width="300"/></a>
 # Quadrature Decoder with PIC18F16Q40
 
-This code example creates a simple quadrature decoder implementation on the PIC18F16Q40 device. It utilizes the Core Independent Peripherals (CIPs): 2 of the Configurable Logic Cells (CLCs) and TMR1/2/3 to measure the quadrature. A UART interface is also used for a serial readout.
+This code example creates a simple quadrature decoder on the PIC18F16Q40 device. It utilizes 2 of the Configurable Logic Cells (CLCs) and TMR1/2/3 to decode the quadrature output of the rotary encoder. A UART interface is also used for a serial readout.
 
 ## Related Documentation
 
-* [Datasheet for PIC18F16Q40 Devices](#)
+* [Datasheet for PIC18F16Q40 Devices {to be published soon}](#)
 * [AN2434, Interfacing Quadrature Encoder using CCL with TCA and TCB](http://www.microchip.com//wwwAppNotes/AppNotes.aspx?appnote=en599697)
-* [Quadrature Encoder Example on AVR DB](https://github.com/microchip-pic-avr-examples/avr128db48-quadrature-decoder.git)
+* [Quadrature Encoder Example on AVR DB {to be published soon}](https://github.com/microchip-pic-avr-examples/avr128db48-quadrature-decoder.git)
 
 ## Software Used
 
@@ -29,52 +29,60 @@ This code example creates a simple quadrature decoder implementation on the PIC1
 
 | Pin Name | Function
 | -------- | --------
-| RA2      | UART TX Output
+| RA2      | UART TX Output (115,200 Baud)
 | RB6      | Encoder "A" Input
 | RB7      | Encoder "B" Input
-| RC7-RC0  | LED "Volume" Outputs
+| RA5      | LED "Volume" Output 10
+| RA4      | LED "Volume" Output 9
+| RC7-RC0  | LED "Volume" Outputs (1 - 8)
 
 Note: To Reverse Direction, Swap "A" and "B" lines on the encoder.
 
 ### Encoder Wiring and Setup
 
-Depending on the encoder, the specific circuit required for it may vary. The manufacturer of the device will specify the circuits required for proper operation.
+Depending on the encoder, the specific circuit required for proper operation will vary. The manufacturer of the device will specify the circuits required to interface with the device.
 
 ## Operation
 
-This example has 2 outputs - a UART output at 115,200 baud which indicates the net turns and direction of the encoder (see [Theory of Operation](#theory-of-operation) below), or a 10-position LED bar graph which acts as a "volume" control. These outputs run independently of each other - it is not required to use both outputs.
+This example has 2 outputs - a UART output and an LED graphical display output.
+
+The UART output runs at 115,200 baud which prints the net change in encoder value (over a period of 1 second) and the current volume of the program.
+The LED graph display output uses a 10-position LED bar graph to display the current volume.
 
 ### UART Output
 
-The UART output run at 115,200 baud through the programmer to the PC. [MPLAB Data Visualizer](https://www.microchip.com/mplab/mplab-data-visualizer) can be used to visualize the serial output. After connecting the board, select the COM port (but do not connect) to:
+The UART output operates at a baud rate of 115,200 through the programmer to the PC. [MPLAB Data Visualizer](https://www.microchip.com/mplab/mplab-data-visualizer) can be used to visualize the serial output. After plugging in the board, select the COM port, but do not connect to it. In the bottom left corner Data Visualizer Window/Tab, enter the following settings.
 
 * Baud Rate: 115,200
 * Char Length: 8 bits
 * Parity: None
 * Stop Bits: 1 bit
 
-After setting these options, press apply then "connect" to the COM port. In the terminal window, set the source to the connected COM port, and wait. Within a few seconds, text should start printing to the screen.
+After setting these options, press apply, then connect to the COM port. In the terminal window, set the display to 8-bit ASCII, the source to the connected COM port, and wait. Within a few seconds, text should start printing to the screen.
+
+![Terminal Output](./images/terminalOutput.PNG)
 
 ### LED Bar Graph Output
 
-The LED bar graph is a graphical "volume" styled output. Each bar in the display represents 10 - with 100 being the "loudest". The control options macros in the program can be used to set the way the "volume" is modified by the encoder.
+The LED bar graph is a graphical "volume" style output. Each bar graph is worth 10, with the exception of the first and last segments which represent 0% and 100%. The Macros in `volume.h` can be used to change the way volume is adjusted.
 
+![Bar Graph GIF](./images/encoderGIF.gif)
 
-Due to differences in encoder parameters, some of the constants will have to be tweaked to find the right balance of speed and accuracy.
+Note: Due to differences in encoder parameters, some of the constants will have to be tweaked to find the right balance of speed and accuracy with the Volume.
 
 #### Control options
 
-* Linear Output - Each pulse from the encoder is counted as 1
-* Stepped Function - Stepwise function for pulse counting
-* 1 Rotation - Each rotation is worth 100%
+* Linear - Each pulse from the encoder is counted as 1
+* Threshold - After exceeding a threshold, in this case 3 pulses, each pulse is worth the same as a "1 rotation pulse".
+* 1 Rotation - Each pulse is worth approximately the value required for a single rotation to adjust from 0 to 100.
 
 ## Theory of Operation
 
-The quadrature decoder takes 2 inputs, A and B, that are out-of-phase by 90 degrees. One of the inputs is considered a reference waveform, for which the phase is measured against. The other waveform determines the direction based on if it leads or lags the reference, as shown below.
+The quadrature decoder takes 2 inputs, A and B, that are out-of-phase by 90 degrees. One of the inputs is considered a reference waveform, for which the phase of the other is measured against. The other waveform determines the direction of the encoder based on if it leads or lags the reference, as shown below.
 
 ![Example Waveform](./images/exampleWaveform.png)
 
-This phase difference can be exploited by using the Configurable Logic Cells (CLCs) on the PIC18F16Q40 in JK Flip-Flop mode. The JK flip-flop is a clocked gate - meaning that it only applies the inputs (J and K) to the output (Q) on the rising edge of the clock. The truth table for the JK Flip-Flop is reproduced below.
+This phase difference can be utilized by the Configurable Logic Cells (CLCs) on the PIC18F16Q40 in JK Flip-Flop mode. The JK flip-flop is a clocked gate - meaning that it only applies the inputs (J and K) to the output (Q) on the rising edge of the clock. The truth table for the JK Flip-Flop is reproduced below.
 
 | J   | K   | Q
 | --- | --- | ---
@@ -83,7 +91,7 @@ This phase difference can be exploited by using the Configurable Logic Cells (CL
 | 1   | 0   | 1
 | 1   | 1   | ~Q
 
-The reset lines in this implementation operate asynchronously - if the line is high, then Q immediately goes to 0. In the cell, one of the lines (A or B) is used as a clock line while the other is used as the input to set and clear the flip-flop, as shown below.
+The reset lines in this implementation operate asynchronously - if the line is high, then Q immediately goes to 0. In the CLC, one of the input lines (A or B) is used as a clock line while the other is used as the input to set and clear the flip-flop, as shown below.
 
 ![CLC Implementation](./images/CLC_Implementation.png)
 
@@ -93,11 +101,11 @@ There are 2 CLCs used in this project, with the only difference being that A and
 
 ![Waveform 2](./images/waveform2.PNG)
 
-Both images were taken with a test signal of ~30Hz. Between runs, the wires to A and B were switched, causing 1 CLC to become active while the other becomes inactive. The output of the CLCs is internally routed to either TMR1 or TMR3. The rising edge of the output causes the timer to count. Normally TMR1 or TMR3 is used as an interrupt, however since the pulse count is unknown and is likely to be relatively small, it makes more sense to use a timer (such as TMR2) as an interrupt to poll the number of pulses in each.
+Both images were taken with a test signal of ~30Hz. Between runs, the wires to A and B were switched, causing 1 CLC to become active while the other becomes inactive. The output of the CLCs is internally routed to either TMR1 or TMR3. The rising edge of the output causes the timer to count. Normally the TMR1 or TMR3 peripherals are used as an interrupt, however since the pulse count is unknown and is likely to be relatively small, it makes more sense to use a timer (such as TMR2) as an interrupt to poll the number of pulses in each.
 
-If the encoder was spun in the same direction between each polling event, then one of the timers will be 0, while the other will contain a value. If the direction was changed, then both counters will be non-zero. To find the net direction, subtract one of the timers from the other. The sign of this value indicates the net direction, while the value indicates the surplus of pulses in that direction.
+The simple way to get the number of pulses in TMR1/3 is to stop the timer, read the value, reset the counter to 0, and start it again. However, if a pulse occurs, then it will be missed by the timer. A better approach is to use the relative difference between each polling event. If the encoder was spun in the same direction between each polling event, then the difference in values (current to old) will be 0, while the other will change. If the direction of rotation was changed between polling events, then both counters will have non-zero differences.
 
-The maximum frequency of this example will be determined by how often a polling event occurs. For a user-interface encoder, the number of pulses is likely to be small, thus a larger time between polling events is appropriate. If the encoder is on a motor, then a faster polling rate is required. Enabling the overflow interrupt for TMR1/3 will detect the condition where the polling rate is too slow.
+To find the net direction of rotation, subtract the net change of one of the timers from the other. The sign of this value indicates whether the encoder is turning clockwise or counter-clockwise. The magnitude of this value represents (approximately) how far it has rotated.
 
 ## Summary
-The Core Independent Peripherals on the PIC18F16Q40 provide a flexible means of implementing more complex operations. In this case, the quadrature decoder is almost completely done in hardware - the amount of software required is minimized.
+In this example, a quadrature decoder was almost entirely implemented in hardware on the PIC18F16Q40 device. This implementation minimizes the amount of software required, freeing up the CPU to perform other tasks. This code example can be adapted to fit the needs of the system - with a few tweaks, this example could become an I2C target or this example could become the primary microcontroller of the entire system.
