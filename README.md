@@ -33,9 +33,12 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
   * Value of the resistor depends on the desired brightness, wavelength, and operating Vdd.
 <br>
 
-### Example Wiring <br>
+### Example Wiring
+<br>
 
 <img src="images/setup.JPG" alt="Setup" width="500"/>
+
+<br>
 
 ## Setup <br>
 
@@ -47,7 +50,7 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 | RB6      | Encoder "B" Input
 | RA5      | LED "Volume" Output 10
 | RA4      | LED "Volume" Output 9
-| RC7-RC0  | LED "Volume" Outputs (1 - 8)
+| RC7-RC0  | LED "Volume" Outputs (1 -> 8)
 
 Note: To Reverse Direction, Swap "A" and "B" lines on the encoder.
 
