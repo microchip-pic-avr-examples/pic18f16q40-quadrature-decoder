@@ -24,14 +24,28 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 * [PIC18F16Q40 Curiosity LPC, Rev 4 (PN: DM164137)](#https://www.microchip.com/DevelopmentTools/ProductDetails/PartNO/DM164137)
 * [PIC18F16Q40 Device Information](https://www.microchip.com/wwwproducts/en/PIC18F16Q40)
 * Incremental Encoder
+* Components required for Encoder Filtering Circuit (if applicable)
+
+### LED Bar Graph Supplies *(optional)*
+
+* LED Bar Graph display with 10 segments
+* 10 resistors for current limiting the LED display
+  * Value of the resistor depends on the desired brightness, wavelength, and operating Vdd.
+
+### Example Wiring
+
+<img src="./images/setup.JPG" alt="Setup Image" width="500px"/>
 
 ## Setup
 
+<img src="./images/blockDiagram.png" alt="Block Diagram" width="500px"/>
+
 | Pin Name | Function
 | -------- | --------
-| RA2      | UART TX Output (115,200 Baud)
-| RB6      | Encoder "A" Input
-| RB7      | Encoder "B" Input
+| RB7      | UART TX Output (115,200 Baud)
+| RB5      | UART RX Input (Unused)
+| RB4      | Encoder "A" Input
+| RB6      | Encoder "B" Input
 | RA5      | LED "Volume" Output 10
 | RA4      | LED "Volume" Output 9
 | RC7-RC0  | LED "Volume" Outputs (1 - 8)
