@@ -33,11 +33,11 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
   * Value of the resistor depends on the desired brightness, wavelength, and operating Vdd.
 
 ### Example Wiring <br>
-<img src="images/setup.JPG" alt="Setup Image" width="500px"/>  
+<img src="images/setup.JPG" alt="Setup Image" width="500" />  
 
 ## Setup <br>
 
-<img src="images/blockDiagram.png" alt="Block Diagram" width="500px"/>  
+<img src="images/blockDiagram.png" alt="Block Diagram" width="500"/>  
 
 | Pin Name | Function
 | -------- | --------
