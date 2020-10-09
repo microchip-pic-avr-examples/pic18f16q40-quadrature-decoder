@@ -34,13 +34,12 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 <br>
 
 ### Example Wiring
-<br>
 
-<img src="./images/setup.JPG" alt="Setup" width="500"/>
-
-<br>
+![Setup](./images/setup.JPG)
 
 ## Setup <br>
+
+![Block Diagram](./images/blockDiagram.png)
 
 | Pin Name | Function
 | -------- | --------
