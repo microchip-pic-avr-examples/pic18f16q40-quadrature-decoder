@@ -36,8 +36,7 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 ### Example Wiring
 <br>
 
-
-![Setup](./images/setup.JPG)
+<img src="./images/setup.JPG" alt="Setup" width="500"/>
 
 <br>
 
