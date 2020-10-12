@@ -26,7 +26,7 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 * Incremental Encoder
 * Components required for Encoder Filtering Circuit (if applicable)
 
-### LED Bar Graph Supplies *(optional)*
+### LED Bar Graph Output - Required Parts *(optional)*
 
 * LED Bar Graph display with 10 segments
 * 10 resistors for current limiting the LED display
@@ -37,7 +37,7 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 
 ![Setup](./images/setup.JPG)
 
-## Setup <br>
+## Setup
 
 ![Block Diagram](./images/blockDiagram.png)
 
@@ -49,7 +49,7 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 | RB6      | Encoder "B" Input
 | RA5      | LED "Volume" Output 10
 | RA4      | LED "Volume" Output 9
-| RC7-RC0  | LED "Volume" Outputs (1 -> 8)
+| RC7-RC0  | LED "Volume" Outputs (1 to 8)
 
 Note: To Reverse Direction, Swap "A" and "B" lines on the encoder.
 
@@ -57,16 +57,18 @@ Note: To Reverse Direction, Swap "A" and "B" lines on the encoder.
 
 Depending on the encoder, the specific circuit required for proper operation will vary. The manufacturer of the device will specify the circuits required to interface with the device.
 
+(Note: if building an RC filter circuit, a loss of power in the microcontroller will cause the capacitor (C) to discharge through the ESD diodes. )
+
 ## Operation
 
 This example has 2 outputs - a UART output and an LED graphical display output.
 
-The UART output runs at 115,200 baud which prints the net change in encoder value (over a period of 1 second) and the current volume of the program.
+The UART output prints the net change in encoder value (over a period of 1 second) and the current volume of the program at 115,200 baud.  
 The LED graph display output uses a 10-position LED bar graph to display the current volume.
 
 ### UART Output
 
-The UART output operates at a baud rate of 115,200 through the programmer to the PC. [MPLAB Data Visualizer](https://www.microchip.com/mplab/mplab-data-visualizer) can be used to visualize the serial output. After plugging in the board, select the COM port, but do not connect to it. In the bottom left corner Data Visualizer Window/Tab, enter the following settings.
+The UART output is connected through the programmer to the PC. [MPLAB Data Visualizer](https://www.microchip.com/mplab/mplab-data-visualizer) can be used to visualize the serial output. After plugging in the board, select the programmer's COM port, but do not connect to it. In the bottom left corner of the Data Visualizer Window/Tab, enter the following settings.
 
 * Baud Rate: 115,200
 * Char Length: 8 bits
@@ -83,13 +85,13 @@ The LED bar graph is a graphical "volume" style output. Each bar graph is worth 
 
 ![Bar Graph GIF](./images/encoderGIF.gif)
 
-Note: Due to differences in encoder parameters, some of the constants will have to be tweaked to find the right balance of speed and accuracy with the Volume.
+Note: Due to differences in encoder parameters, some of the constants may have to be tweaked to find the right balance of speed and accuracy with the Volume Control.
 
 #### Control options
 
-* Linear - Each pulse from the encoder is counted as 1
+* Linear - Each pulse from the encoder is counted as 1.
 * Threshold - After exceeding a threshold, in this case 3 pulses, each pulse is worth the same as a "1 rotation pulse".
-* 1 Rotation - Each pulse is worth approximately the value required for a single rotation to adjust from 0 to 100.
+* 1 Rotation - Each pulse is worth approximately the value required for a single rotation to go from 0 to 100.
 
 ## Theory of Operation
 
@@ -120,7 +122,12 @@ Both images were taken with a test signal of ~30Hz. Between runs, the wires to A
 
 The simple way to get the number of pulses in TMR1/3 is to stop the timer, read the value, reset the counter to 0, and start it again. However, if a pulse occurs, then it will be missed by the timer. A better approach is to use the relative difference between each polling event. If the encoder was spun in the same direction between each polling event, then the difference in values (current to old) will be 0, while the other will change. If the direction of rotation was changed between polling events, then both counters will have non-zero differences.
 
+To prevent invalid reads, this example uses TMR1 and TMR3 in 16-bit read mode to buffer the high byte of the timer counter when the low byte is read. This mode of operation prevents an increment that could occur after reading the 1st byte from affecting the high byte, as shown below.
+
+![CLC Implementation](./images/timingError.png)
+
+
 To find the net direction of rotation, subtract the net change of one of the timers from the other. The sign of this value indicates whether the encoder is turning clockwise or counter-clockwise. The magnitude of this value represents (approximately) how far it has rotated.
 
 ## Summary
-In this example, a quadrature decoder was almost entirely implemented in hardware on the PIC18F16Q40 device. This implementation minimizes the amount of software required, freeing up the CPU to perform other tasks. This code example can be adapted to fit the needs of the system - with a few tweaks, this example could become an I2C target or this example could become the primary microcontroller of the entire system.
+In this example, a quadrature decoder was almost entirely implemented in hardware on the PIC18F16Q40 device. This implementation minimizes the amount of software required, freeing up the CPU to perform other tasks. This code example can be adapted to fit the needs of the system - with a few tweaks, this example could become an I2C-controlled device that could report the encoder values and handle other simple tasks required for a user interface.

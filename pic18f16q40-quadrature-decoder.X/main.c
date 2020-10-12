@@ -101,6 +101,7 @@ void main(void)
             }
             else
             {
+                //Increment Counter
                 UARTTrigger++;
             }
         }

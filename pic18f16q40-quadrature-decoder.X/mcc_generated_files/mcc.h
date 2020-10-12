@@ -55,8 +55,8 @@
 #include "interrupt_manager.h"
 #include "tmr3.h"
 #include "tmr1.h"
-#include "tmr2.h"
 #include "clc2.h"
+#include "tmr2.h"
 #include "clc1.h"
 #include "uart1.h"
 
