@@ -35,7 +35,8 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 
 ### Example Wiring
 
-  
+
+<a href="https://www.microchip.com" rel="nofollow"><img src="images/microchip.png" alt="MCHP" width="300"/></a>
 
 <img src="images/setup.JPG" alt="Setup Image" width="500"/>
 
