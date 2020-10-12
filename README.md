@@ -107,7 +107,7 @@ The quadrature decoder takes 2 inputs, A and B, that are out-of-phase by 90 degr
 
 ![Example Waveform](./images/exampleWaveform.png)
 
-*Figure 5 - Example Outputs of the CLCs*
+*Figure 5 - Example outputs of the CLCs*
 
 This phase difference can be utilized by the Configurable Logic Cells (CLCs) on the PIC18F16Q40 in JK Flip-Flop mode. The JK flip-flop is a clocked gate - meaning that it only applies the inputs (J and K) to the output (Q) on the rising edge of the clock. The truth table for the JK Flip-Flop is reproduced below.
 
@@ -143,7 +143,7 @@ To prevent invalid reads, this example uses TMR1 and TMR3 in 16-bit read mode to
 
 ![CLC Implementation](./images/timingError.png)
 
-*Figure 8 - Timing Error caused by an Asynchronous Pulse*
+*Figure 8 - Timing error caused by an asynchronous pulse*
 
 To find the net direction of rotation, subtract the net change of one of the timers from the other. The sign of this value indicates whether the encoder is turning clockwise or counter-clockwise. The magnitude of this value represents (approximately) how far it has rotated.
 
