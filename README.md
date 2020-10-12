@@ -29,13 +29,12 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 ### LED Bar Graph Output - Required Parts *(optional)*
 
 * LED Bar Graph display with 10 segments
-* 10 resistors for current limiting the LED display
-  * Value of the resistor depends on the desired brightness, wavelength, and operating Vdd.
+* 10 resistors for current limiting the LED display.
 
+Note: Value of the resistor depends on the desired brightness, wavelength, and operating Vdd.
 
 ### Example Wiring
 
-Test
 <img src="images/setupImage.png" alt="Setup Image" width="500"/> <br>
 *Figure 1 - Setup used for testing. Your setup may vary.*
 
