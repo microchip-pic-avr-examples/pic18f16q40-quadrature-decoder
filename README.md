@@ -6,7 +6,7 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 ## Related Documentation
 
 * [Datasheet for PIC18F16Q40 Devices {to be published soon}](#)
-* [AN2434, Interfacing Quadrature Encoder using CCL with TCA and TCB](http://www.microchip.com//wwwAppNotes/AppNotes.aspx?appnote=en599697?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
+* [AN2434: Interfacing Quadrature Encoder using CCL with TCA and TCB](https://www.microchip.com//wwwAppNotes/AppNotes.aspx?appnote=en599697)
 * [Quadrature Encoder Example on AVR DB {to be published soon}](https://github.com/microchip-pic-avr-examples/avr128db48-quadrature-decoder.git)
 
 ## Software Used
@@ -22,7 +22,7 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 
 * [PIC18F16Q40 Curiosity Nano (PN: EV70C97A)](#)
 * [PIC18F16Q40 Device Information](https://www.microchip.com/wwwproducts/en/PIC18F16Q40?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=-MCU8_MMTCha)
-* Incremental Encoder
+* Incremental Encoder (In this example, PEC12R-4225F-N0024)
 * Components required for Encoder Filtering Circuit (if applicable)
 
 ### LED Bar Graph Output - Required Parts *(optional)*
@@ -30,7 +30,7 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 * LED Bar Graph display with 10 segments
 * 10 resistors for current limiting the LED display.
 
-Note: Value of the resistor depends on the desired brightness, wavelength, and operating Vdd.
+Note: Value of the resistor depends on the desired brightness, wavelength, and operating voltage.
 
 ### Example Wiring
 
@@ -49,9 +49,9 @@ Note: Value of the resistor depends on the desired brightness, wavelength, and o
 | RB5      | UART RX Input (Unused)
 | RB4      | Encoder "A" Input
 | RB6      | Encoder "B" Input
-| RA5      | LED "Volume" Output 10
-| RA4      | LED "Volume" Output 9
-| RC7-RC0  | LED "Volume" Outputs ( 1 to 8 )
+| RA5      | LED Output 10
+| RA4      | LED Output 9
+| RC7-RC0  | LED Outputs ( 1 to 8 )
 
 Note: To Reverse Direction, Swap "A" and "B" lines on the encoder.
 
@@ -59,11 +59,17 @@ Note: To Reverse Direction, Swap "A" and "B" lines on the encoder.
 
 Depending on the encoder, the specific circuit required for proper operation will vary. The manufacturer of the device will specify the circuits required to interface with the device.
 
-Note: If building an RC filter circuit, a loss of power in the microcontroller could cause the capacitor to discharge through the ESD diodes. Damage may occur if too much current is passed through the ESD diodes. Adding a resistor in series with the inputs will reduce the current into the microcontroller. Since the signal is digital, this should have a minimial effect on the performance of the encoders.
+***
+
+The encoder that was chosen is a low-cost mechanical encoder with 24 pulses-per-revolution (PPR). High PPR encoders provide more precise positioning information. However, this example uses it for user interactions, where the precision of a higher PPR encoder was not needed.
+
+The manufacturer for this encoder (Bourns Inc.) recommends pulling up the outputs of the encoders to Vdd and filtering with an RC filter. I have added a 10k resistor in series with the filter to reduce the current through the ESD diodes from the filter capacitor when power is disconnected. Since the encoder signal is digital, this should have a minimial effect on the performance of the encoders.
+
+Note: Damage may occur if too much current is passed through the ESD diodes.
 
 ## Operation
 
-This example has 2 outputs - a UART output and an LED graphical display output.
+This example has 2 outputs - a UART output and an LED bar graph display output.
 
 The UART output prints the net change in encoder value (over a period of 1 second) and the current volume of the program at 115,200 baud.  
 The LED graph display output uses a 10-position LED bar graph to display the current volume.
@@ -147,4 +153,4 @@ To prevent invalid reads, this example uses TMR1 and TMR3 in 16-bit read mode to
 To find the net direction of rotation, subtract the net change of one of the timers from the other. The sign of this value indicates whether the encoder is turning clockwise or counter-clockwise. The magnitude of this value represents (approximately) how far it has rotated.
 
 ## Summary
-In this example, a quadrature decoder was almost entirely implemented in hardware on the PIC18F16Q40 device. This implementation minimizes the amount of software required, freeing up the CPU to perform other tasks. This code example can be adapted to fit the needs of the system - with a few tweaks, this example could become an I2C-controlled device that could report the encoder values and handle other simple tasks required for a user interface.
+In this example, a quadrature decoder was almost entirely implemented in hardware on the PIC18F16Q40 device. This implementation minimizes the amount of software required, freeing up the CPU to perform other tasks. This code example can be easily tailored for a specific application. The only requirements to implement the quadrature decoder (with no physical outputs or indicators) are 2 CLCs, TMR1, TMR2, and TMR3.
