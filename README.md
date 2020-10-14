@@ -21,7 +21,7 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 ## Hardware Used
 
 * [PIC18F16Q40 Curiosity Nano (PN: EV70C97A)](#)
-* [PIC18F16Q40 Device Information](https://www.microchip.com/wwwproducts/en/PIC18F16Q40?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=-MCU8_MMTCha)
+* [PIC18F16Q40 Device Information](https://www.microchip.com/wwwproducts/en/PIC18F16Q40?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
 * Incremental Encoder (In this example, PEC12R-4225F-N0024)
 * Components required for Encoder Filtering Circuit (if applicable)
 
@@ -61,9 +61,14 @@ Depending on the encoder, the specific circuit required for proper operation wil
 
 ***
 
-The encoder that was chosen is a low-cost mechanical encoder with 24 pulses-per-revolution (PPR). High PPR encoders provide more precise positioning information. However, this example uses it for user interactions, where the precision of a higher PPR encoder was not needed.
+The encoder that was chosen is a low-cost mechanical encoder with 24 pulses-per-revolution (PPR). High PPR encoders provide more precise positioning information. However, this example uses it for user interfacing, where the precision of a higher PPR encoder was not needed.
 
-The manufacturer for this encoder (Bourns Inc.) recommends pulling up the outputs of the encoders to Vdd and filtering with an RC filter. I have added a 10k resistor in series with the filter to reduce the current through the ESD diodes from the filter capacitor when power is disconnected. Since the encoder signal is digital, this should have a minimial effect on the performance of the encoders.
+To connect the encoder to the microcontroller, the manufacturer for this encoder (Bourns Inc.) recommends pulling up the outputs of the encoders to Vdd and filtering with an RC filter, an example of which is shown in Figure 3. (See the [Manufacturer's Datasheet](https://www.bourns.com/docs/Product-Datasheets/PEC12R.pdf) for up-to date information.)
+
+![Sample Circuit](./images/sampleCircuit.png)
+*Figure 3 - Implemented Circuit*
+
+I have added a 10k resistor in series with the RC filter to reduce the current through the ESD diodes from the filter capacitor if power is lost while the capacitors are fully charged. Since the encoder signal is digital, the added resistance should have a minimial effect on the performance of the encoders.
 
 Note: Damage may occur if too much current is passed through the ESD diodes.
 
@@ -87,16 +92,16 @@ After setting these options, press apply, then connect to the COM port. In the t
 
 ![Terminal Output](./images/terminalOutput.PNG)
 
-*Figure 3 - Example Terminal Output*
+*Figure 4 - Example Terminal Output*
 
 
 ### LED Bar Graph Output
 
-The LED bar graph is a graphical "volume" style output. Each bar graph is worth 10, with the exception of the first and last segments which represent 0% and 100%. The Macros in `volume.h` can be used to change the way volume is adjusted.
+The LED bar graph is a graphical "volume" style output. Each bar graph is worth 10, with the exception of the first and last segments which represent 0% and 100%. The Macros in `volume.h` can be used to change the way volume is adjusted (see [Control Options](#control-options)).
 
 ![Bar Graph GIF](./images/encoderGIF.gif)
 
-*Figure 4 - Demonstration of the LED Bar Graph Output*
+*Figure 5 - Demonstration of the LED Bar Graph Output*
 
 Note: Due to differences in encoder parameters, some of the constants may have to be tweaked to find the right balance of speed and accuracy with the Volume Control.
 
@@ -108,11 +113,11 @@ Note: Due to differences in encoder parameters, some of the constants may have t
 
 ## Theory of Operation
 
-The quadrature decoder takes 2 inputs, A and B, that are out-of-phase by 90 degrees. One of the inputs is considered a reference waveform, for which the phase of the other is measured against. The other waveform determines the direction of the encoder based on if it leads or lags the reference, as shown in Figure 5.
+The quadrature decoder takes 2 inputs, A and B, that are out-of-phase by 90 degrees. One of the inputs is considered a reference waveform, for which the phase of the other is measured against. The other waveform determines the direction of the encoder based on if it leads or lags the reference, as shown in Figure 6.
 
 ![Example Waveform](./images/exampleWaveform.png)
 
-*Figure 5 - Example outputs of the CLCs*
+*Figure 6 - Example outputs of the CLCs*
 
 This phase difference can be utilized by the Configurable Logic Cells (CLCs) on the PIC18F16Q40 in JK Flip-Flop mode. The JK flip-flop is a clocked gate - meaning that it only applies the inputs (J and K) to the output (Q) on the rising edge of the clock. The truth table for the JK Flip-Flop is reproduced below.
 
@@ -123,32 +128,32 @@ This phase difference can be utilized by the Configurable Logic Cells (CLCs) on 
 | 1   | 0   | 1
 | 1   | 1   | ~Q
 
-The reset lines in this implementation operate asynchronously - if the line is high, then Q immediately goes to 0. In the CLC, one of the input lines (A or B) is used as a clock line while the other is used as the input to set and clear the flip-flop, as shown in Figure 6.
+The reset lines in this implementation operate asynchronously - if the line is high, then Q immediately goes to 0. In the CLC, one of the input lines (A or B) is used as a clock line while the other is used as the input to set and clear the flip-flop, as shown in Figure 7.
 
 ![CLC Implementation](./images/CLC_Implementation.png)
 
-*Figure 6 - CLC Logic Diagram*
+*Figure 7 - CLC Logic Diagram*
 
-There are 2 CLCs used in this project, with the only difference being that A and B are swapped between the two. Swapping A and B causes one of the CLCs to see the input lag while the other sees the input lead. In a JK flip-flop, J must be high when the clock is rising in order to set the output high. The only flip-flop that will be set is the configuration where the input leads the clock signal, as shown in Figures 6 and 7.
+There are 2 CLCs used in this project, with the only difference being that A and B are swapped between the two. Swapping A and B causes one of the CLCs to see the input lag while the other sees the input lead. In a JK flip-flop, J must be high when the clock is rising in order to set the output high. The only flip-flop that will be set is the configuration where the input leads the clock signal, as shown in Figures 8 and 9.
 
 ![Waveform 1](./images/waveform1.PNG)
 
-*Figure 6 - Output of the CLCs (with A and B not switched)*
+*Figure 8 - Output of the CLCs (with A and B not switched)*
 
 
 ![Waveform 2](./images/waveform2.PNG)
 
-*Figure 7 - Output of the CLCs (with A and B switched)*
+*Figure 9 - Output of the CLCs (with A and B switched)*
 
-Both images were taken with a test signal of ~30Hz. Between runs, the wires to A and B were switched, causing 1 CLC to become active while the other becomes inactive. The output of the CLCs is internally routed to either TMR1 or TMR3. The rising edge of the output causes the timer to count. Normally the TMR1 or TMR3 peripherals are used as an interrupt, however since the pulse count is unknown and is likely to be relatively small, it makes more sense to use a timer (such as TMR2) as an interrupt to poll the number of pulses in each.
+Both images were taken with a test signal of ~30Hz. Between runs, the wires to A and B were switched, causing 1 CLC to become active while the other becomes inactive. The output of the CLCs is internally routed to either TMR1 or TMR3. The rising edge of the output causes the timer to count. Normally the TMR1 or TMR3 overflow is used as an interrupt, however since the pulse count is unknown and is likely to be relatively small, it makes more sense to use a timer (such as TMR2) as an interrupt to poll the number of pulses in each.
 
-The simple way to get the number of pulses in TMR1/3 is to stop the timer, read the value, reset the counter to 0, and start it again. However, if a pulse occurs, then it will be missed by the timer. A better approach is to use the relative difference between each polling event. If the encoder was spun in the same direction between each polling event, then the difference in values (current to old) will be 0, while the other will change. If the direction of rotation was changed between polling events, then both counters will have non-zero differences.
+The simple way to get the number of pulses in TMR1/3 is to stop the timer, read the value, reset the counter back to 0, and start it again. However, if a pulse occurs, then it will be missed by the timer. A better approach is to use the relative difference between each polling event. If the encoder was spun in the same direction between each polling event, then the difference in values (current to old) will be 0, while the other will change. If the direction of rotation was changed between polling events, then both counters will have non-zero differences.
 
-To prevent invalid reads, this example uses TMR1 and TMR3 in 16-bit read mode to buffer the high byte of the timer counter when the low byte is read. This mode of operation prevents an increment that could occur after reading the 1st byte from affecting the high byte, as shown in Figure 8.
+To prevent invalid reads, this example uses TMR1 and TMR3 in 16-bit read mode to buffer the high byte of the timer counter when the low byte is read. This mode of operation prevents an increment that could occur after reading the 1st byte from affecting the high byte, as shown in Figure 10.
 
 ![CLC Implementation](./images/timingError.png)
 
-*Figure 8 - Timing error caused by an asynchronous pulse*
+*Figure 10 - Timing error caused by an asynchronous pulse*
 
 To find the net direction of rotation, subtract the net change of one of the timers from the other. The sign of this value indicates whether the encoder is turning clockwise or counter-clockwise. The magnitude of this value represents (approximately) how far it has rotated.
 
