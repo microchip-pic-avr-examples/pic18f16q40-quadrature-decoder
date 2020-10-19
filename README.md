@@ -6,17 +6,15 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 ## Related Documentation
 
 * [Datasheet for PIC18F16Q40 Devices {to be published soon}](#)
-* [AN2434: Interfacing Quadrature Encoder using CCL with TCA and TCB](https://www.microchip.com//wwwAppNotes/AppNotes.aspx?appnote=en599697)
 * [Quadrature Encoder Example on AVR DB {to be published soon}](https://github.com/microchip-pic-avr-examples/avr128db48-quadrature-decoder.git)
 
 ## Software Used
 
 * [MPLAB X v5.40](https://www.microchip.com/mplab/mplab-x-ide?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
 * [XC8 v2.30](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-xc-compilers?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
-* [MPLAB Code Configurator v5.0.1](https://www.microchip.com/mplab/mplab-code-configurator?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
+* [MPLAB Code Configurator (MCC) v5.0.1](https://www.microchip.com/mplab/mplab-code-configurator?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
 * [PIC18F-Q_DFP v1.8.154](https://packs.download.microchip.com/?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
 * [MPLAB Data Visualizer](https://www.microchip.com/mplab/mplab-data-visualizer?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha) or a Serial COM Terminal (*optional*)
-
 
 ## Hardware Used
 
@@ -27,8 +25,9 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 
 ### LED Bar Graph Output - Required Parts *(optional)*
 
-* LED Bar Graph display with 10 segments
+* LED Bar Graph display with 10 segments (In this example, LTA-1000HR)
 * 10 resistors for current limiting the LED display.
+  * For this example, 470 ohm resistors were used at an operating voltage of 5V.  
 
 Note: Value of the resistor depends on the desired brightness, wavelength, and operating voltage.
 
@@ -61,14 +60,14 @@ Depending on the encoder, the specific circuit required for proper operation wil
 
 ***
 
-The encoder that was chosen is a low-cost mechanical encoder with 24 pulses-per-revolution (PPR). High PPR encoders provide more precise positioning information. However, this example uses it for user interfacing, where the precision of a higher PPR encoder was not needed.
+The encoder used is a mechanical encoder with 24 pulses-per-revolution (PPR). High PPR encoders provide more precise positioning information. However, this example uses it for user interfacing, where the precision of a higher PPR encoder was not needed.
 
 To connect the encoder to the microcontroller, the manufacturer for this encoder (Bourns Inc.) recommends pulling up the outputs of the encoders to Vdd and filtering with an RC filter, an example of which is shown in Figure 3. (See the [Manufacturer's Datasheet](https://www.bourns.com/docs/Product-Datasheets/PEC12R.pdf) for up-to date information.)
 
 ![Sample Circuit](./images/sampleCircuit.png)
 *Figure 3 - Implemented Circuit*
 
-I have added a 10k resistor in series with the RC filter to reduce the current through the ESD diodes from the filter capacitor if power is lost while the capacitors are fully charged. Since the encoder signal is digital, the added resistance should have a minimial effect on the performance of the encoders.
+10k resistors were added in series with the RC filter to reduce the current through the ESD diodes from the filter capacitor if power is lost while the capacitors are fully charged. Since the encoder signal is digital, the added resistance should have a minimial effect on the performance of the encoders.
 
 Note: Damage may occur if too much current is passed through the ESD diodes.
 
@@ -76,7 +75,7 @@ Note: Damage may occur if too much current is passed through the ESD diodes.
 
 This example has 2 outputs - a UART output and an LED bar graph display output.
 
-The UART output prints the net change in encoder value (over a period of 1 second) and the current volume of the program at 115,200 baud.  
+The UART output prints the net change in encoder value (over a period of 1s) and the current volume of the program at 115,200 baud.  
 The LED graph display output uses a 10-position LED bar graph to display the current volume.
 
 ### UART Output
