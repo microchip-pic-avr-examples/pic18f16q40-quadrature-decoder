@@ -63,7 +63,7 @@ The encoder used is a mechanical encoder with 24 pulses-per-revolution (PPR). Hi
 
 To connect the encoder to the microcontroller, the manufacturer for this encoder (Bourns Inc.) recommends pulling up the outputs of the encoders to Vdd and filtering with an RC filter, an example of which is shown in Figure 3. (See the [Manufacturer's Datasheet](https://www.bourns.com/docs/Product-Datasheets/PEC12R.pdf) for up-to date information.)
 
-![Sample Circuit](./images/sampleCircuit.png)
+![Sample Circuit](./images/sampleCircuit.png)  
 *Figure 3 - Implemented Circuit*
 
 10k resistors were added in series with the RC filter to reduce the current through the ESD diodes from the filter capacitor if power is lost while the capacitors are fully charged. Since the encoder signal is digital, the added resistance should have a minimial effect on the performance of the encoders.
