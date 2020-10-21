@@ -5,8 +5,7 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 
 ## Related Documentation
 
-* [Datasheet for PIC18F16Q40 Devices {to be published soon}](#)
-* [Quadrature Encoder Example on AVR DB {to be published soon}](https://github.com/microchip-pic-avr-examples/avr128db48-quadrature-decoder.git)
+* [Datasheet for PIC18F16Q40](http://onlinedocs.microchip.com/pr/GUID-73B9A526-A001-4F01-ABC8-DBB48A2A12E6-en-US-10/index.html)  
 
 ## Software Used
 
