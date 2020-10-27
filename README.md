@@ -5,7 +5,8 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 
 ## Related Documentation
 
-* [Datasheet for PIC18F16Q40](http://onlinedocs.microchip.com/pr/GUID-73B9A526-A001-4F01-ABC8-DBB48A2A12E6-en-US-10/index.html)  
+* [PDF Datasheet for PIC18F16Q40](http://ww1.microchip.com/downloads/en/DeviceDoc/PIC18F06-16Q40-Data-Sheet-40002216C.pdf)  
+* [Online Datasheet for PIC18F16Q40](http://onlinedocs.microchip.com/pr/GUID-73B9A526-A001-4F01-ABC8-DBB48A2A12E6-en-US-10/index.html)  
 
 ## Software Used
 
@@ -17,7 +18,7 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 
 ## Hardware Used
 
-* [PIC18F16Q40 Curiosity Nano (PN: EV70C97A)](#)
+* [PIC18F16Q40 Curiosity Nano (PN: EV70C97A)](https://www.microchip.com/developmenttools/ProductDetails/EV70C97A)
 * [PIC18F16Q40 Device Information](https://www.microchip.com/wwwproducts/en/PIC18F16Q40?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
 * Incremental Encoder (In this example, PEC12R-4225F-N0024)
 * Components required for Encoder Filtering Circuit (if applicable)
