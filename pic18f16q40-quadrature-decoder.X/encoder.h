@@ -46,7 +46,21 @@ extern "C" {
      * readTMRs_ISR. 
      *  */
     int16_t getNewEncoderValue(void);
-
+    
+    /** 
+     * <B><FONT COLOR=BLUE>uint16_t</FONT> getAsyncTimer1Value(<FONT COLOR=BLUE>void</FONT>)</B>
+     * 
+     * This function returns the TMR1 count without stopping the timer.
+     *  */
+    uint16_t getAsyncTimer1Value(void);
+    
+    /** 
+     * <B><FONT COLOR=BLUE>uint16_t</FONT> getAsyncTimer3Value(<FONT COLOR=BLUE>void</FONT>)</B>
+     * 
+     * This function returns the TMR3 count without stopping the timer.
+     *  */
+    uint16_t getAsyncTimer3Value(void);
+    
 #ifdef	__cplusplus
 }
 #endif

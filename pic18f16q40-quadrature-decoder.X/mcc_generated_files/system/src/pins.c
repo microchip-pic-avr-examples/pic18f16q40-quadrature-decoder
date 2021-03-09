@@ -1,26 +1,21 @@
 /**
-  Generated Pin Manager File
+  Generated Pins File
 
   Company:
     Microchip Technology Inc.
 
   File Name:
-    pin_manager.c
+    pins.c
 
   Summary:
-    This is the Pin Manager file generated using PIC10 / PIC12 / PIC16 / PIC18 MCUs
+    This is generated driver implementation for pins. 
 
   Description:
-    This header file provides implementations for pin APIs for all pins selected in the GUI.
-    Generation Information :
-        Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.6
-        Device            :  PIC18F16Q40
-        Driver Version    :  2.11
-    The generated drivers are tested against the following:
-        Compiler          :  XC8 2.30 and above
-        MPLAB             :  MPLAB X 5.40
+    This file provides implementations for pin APIs for all pins selected in the GUI.
 
-    Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
+  Generation Information:
+    Driver Version:  3.0.0
+
 */
 
 /*
@@ -46,48 +41,45 @@
     SOFTWARE.
 */
 
-#include "pin_manager.h"
-
-
-
+#include "../pins.h"
 
 
 void PIN_MANAGER_Initialize(void)
 {
-    /**
+   /**
     LATx registers
     */
-    LATA = 0x00;
-    LATB = 0x00;
-    LATC = 0x00;
+    LATA = 0x0;
+    LATB = 0x0;
+    LATC = 0x0;
 
     /**
     TRISx registers
     */
-    TRISA = 0x0F;
+    TRISA = 0x2F;
     TRISB = 0x70;
-    TRISC = 0x00;
+    TRISC = 0x0;
 
     /**
     ANSELx registers
     */
-    ANSELC = 0x00;
-    ANSELB = 0x80;
-    ANSELA = 0x07;
+    ANSELA = 0x0;
+    ANSELB = 0x0;
+    ANSELC = 0x0;
 
     /**
     WPUx registers
     */
-    WPUB = 0x00;
-    WPUA = 0x00;
-    WPUC = 0x00;
+    WPUA = 0x0;
+    WPUB = 0x0;
+    WPUC = 0x0;
 
     /**
     ODx registers
     */
-    ODCONA = 0x00;
-    ODCONB = 0x00;
-    ODCONC = 0x00;
+    ODCONA = 0x0;
+    ODCONB = 0x0;
+    ODCONC = 0x0;
 
     /**
     SLRCONx registers
@@ -102,22 +94,33 @@ void PIN_MANAGER_Initialize(void)
     INLVLA = 0x3F;
     INLVLB = 0xF0;
     INLVLC = 0xFF;
+    /**
+    PPS registers
+    */
+    CLCIN0PPS = 0xC; //RB4->CLC2:CLCIN0;
+    CLCIN1PPS = 0xE; //RB6->CLC2:CLCIN1;
+    U1RXPPS = 0xD; //RB5->UART1:RX1;
+    T2INPPS = 0x5; //RA5->TMR2:T2IN;
+    RB7PPS = 0x10;  //RB7->UART1:TX1;
+
+   /**
+    IOCx registers 
+    */
+    IOCAP = 0x0;
+    IOCAN = 0x0;
+    IOCAF = 0x0;
+    IOCBP = 0x0;
+    IOCBN = 0x0;
+    IOCBF = 0x0;
+    IOCCP = 0x0;
+    IOCCN = 0x0;
+    IOCCF = 0x0;
 
 
-
-
-
-   
-    
-	
-    CLCIN0PPS = 0x0C;   //RB4->CLC2:CLCIN0;    
-    RB7PPS = 0x10;   //RB7->UART1:TX1;    
-    CLCIN1PPS = 0x0E;   //RB6->CLC2:CLCIN1;    
-    U1RXPPS = 0x0D;   //RB5->UART1:RX1;    
 }
   
 void PIN_MANAGER_IOC(void)
-{   
+{
 }
 
 /**

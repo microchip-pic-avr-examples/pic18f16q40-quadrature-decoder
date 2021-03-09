@@ -1,7 +1,7 @@
 #include "volume.h"
 #include "constants.h"
 
-#include "mcc_generated_files/mcc.h"
+#include "mcc_generated_files/system/system.h"
 
 #include <stdint.h>
 

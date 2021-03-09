@@ -18,9 +18,9 @@ extern "C" {
  * Single Rotation - Approx. 1 Rotation is 100% of the Output
  **/
     
-//#define LINEAR_VOLUME_CONTROL
+#define LINEAR_VOLUME_CONTROL
 //#define THRESHOLD_VOLUME_CONTROL
-#define SINGLE_ROTATION_CONTROL
+//#define SINGLE_ROTATION_CONTROL
     
     /** 
      * <B><FONT COLOR=BLUE>void</FONT> initVolumeControl(<FONT COLOR=BLUE>void</FONT>)</B>

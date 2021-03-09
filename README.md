@@ -54,7 +54,7 @@ Note: Value of the resistor depends on the desired brightness, wavelength, and o
 
 Note: To Reverse Direction, Swap "A" and "B" lines on the encoder.
 
-### Encoder Wiring and Setup
+### Encoder Wiring and Demo Setup
 
 Depending on the encoder, the specific circuit required for proper operation will vary. The manufacturer of the device will specify the circuits required to interface with the device.
 
@@ -155,6 +155,14 @@ To prevent invalid reads, this example uses TMR1 and TMR3 in 16-bit read mode to
 *Figure 10 - Timing error caused by an asynchronous pulse*
 
 To find the net direction of rotation, subtract the net change of one of the timers from the other. The sign of this value indicates whether the encoder is turning clockwise or counter-clockwise. The magnitude of this value represents (approximately) how far it has rotated.
+
+### CLC Implementation
+
+![CLC1 Image](./images/CLC1.png)  
+*Figure 11 - CLC 1 Implementation*
+
+![CLC1 Image](./images/CLC2.png)  
+*Figure 12 - CLC 2 Implementation*  
 
 ## Summary
 In this example, a quadrature decoder was almost entirely implemented in hardware on the PIC18F16Q40 device. This implementation minimizes the amount of software required, freeing up the CPU to perform other tasks. This code example can be easily tailored for a specific application. The only requirements to implement the quadrature decoder (with no physical outputs or indicators) are 2 CLCs, TMR1, TMR2, and TMR3.

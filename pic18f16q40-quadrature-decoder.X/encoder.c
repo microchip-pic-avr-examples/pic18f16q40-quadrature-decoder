@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "mcc_generated_files/mcc.h"
+#include "mcc_generated_files/system/system.h"
 
 //Net Encoder Change (in Pulses)
 static volatile int16_t encoder;
@@ -17,6 +17,20 @@ void initEncoders(void)
     newEncoder = false;
 }
 
+uint16_t getAsyncTimer1Value(void)
+{
+    uint16_t t = TMR1L;    
+    t |= (TMR1H << 8);
+    return t;
+}
+
+uint16_t getAsyncTimer3Value(void)
+{
+    uint16_t t = TMR3L;    
+    t |= (TMR3H << 8);
+    return t;
+}
+
 void readTMRs_ISR(void)
 {
     static volatile uint16_t old_TMR1 = 0;
@@ -25,8 +39,8 @@ void readTMRs_ISR(void)
     uint16_t new_TMR1, new_TMR3, net_TMR1, net_TMR3;
     
     //Get Current Values
-    new_TMR1 = TMR1_ReadTimer();
-    new_TMR3 = TMR3_ReadTimer();
+    new_TMR1 = getAsyncTimer1Value();
+    new_TMR3 = getAsyncTimer3Value();
     
     //Zero out the net change
     net_TMR1 = 0;
