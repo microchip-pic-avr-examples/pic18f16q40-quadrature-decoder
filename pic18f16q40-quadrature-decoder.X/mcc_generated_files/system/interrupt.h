@@ -15,7 +15,7 @@
     For individual peripheral handlers please see the peripheral driver for
     all modules selected in the GUI.
     Generation Information :
-        Driver Version    :  2.12
+        Driver Version    :  2.03
     The generated drivers are tested against the following:
         Compiler          :  XC8 v2.20 or later
         MPLAB 	          :  MPLABX v5.45
@@ -58,17 +58,6 @@ Copyright (c) [2012-2020] Microchip Technology Inc.
 #ifndef INTERRUPT_H
 #define INTERRUPT_H
 
-/**
- * @Param
-    none
- * @Returns
-    none
- * @Description
-    This macro will enable high priority global interrupts.
- * @Example
-    INTERRUPT_GlobalInterruptHighEnable();
- */
-#define INTERRUPT_GlobalInterruptHighEnable() (INTCON0bits.GIE = 1)
 
 /**
  * @Param
@@ -76,24 +65,11 @@ Copyright (c) [2012-2020] Microchip Technology Inc.
  * @Returns
     none
  * @Description
-    This macro will disable high priority global interrupts.
+    This macro will enable global interrupts.
  * @Example
-    INTERRUPT_GlobalInterruptHighDisable();
+    INTERRUPT_GlobalInterruptEnable();
  */
-#define INTERRUPT_GlobalInterruptHighDisable() (INTCON0bits.GIE = 0)
-
-/**
- * @Param
-    none
- * @Returns
-    0 - Global Interrupt Disabled
-    1 - Global Interrupt Enabled
- * @Description
-    This macro will return the global interrupt enable high bit status.
- * @Example
-    INTERRUPT_GlobalInterruptHighStatus();
- */
-#define INTERRUPT_GlobalInterruptHighStatus() (INTCON0bits.GIE)
+#define INTERRUPT_GlobalInterruptEnable() (INTCON0bits.GIE = 1)
 
 /**
  * @Param
@@ -101,23 +77,11 @@ Copyright (c) [2012-2020] Microchip Technology Inc.
  * @Returns
     none
  * @Description
-    This macro will enable low priority global interrupts.
+    This macro will disable global interrupts.
  * @Example
-    INTERRUPT_GlobalInterruptLowEnable();
+    INTERRUPT_GlobalInterruptDisable();
  */
-#define INTERRUPT_GlobalInterruptLowEnable() (INTCON0bits.GIEL = 1)
-
-/**
- * @Param
-    none
- * @Returns
-    none
- * @Description
-    This macro will disable low priority global interrupts.
- * @Example
-    INTERRUPT_GlobalInterruptLowDisable();
- */
-#define INTERRUPT_GlobalInterruptLowDisable() (INTCON0bits.GIEL = 0)
+#define INTERRUPT_GlobalInterruptDisable() (INTCON0bits.GIE = 0)
 
 /**
  * @Param
@@ -126,11 +90,12 @@ Copyright (c) [2012-2020] Microchip Technology Inc.
     0 - Global Interrupt Disabled
     1 - Global Interrupt Enabled
  * @Description
-    This macro will return the global interrupt enable low bit status.
+    This macro will return the global interrupt enable bit status.
  * @Example
-    INTERRUPT_GlobalInterruptLowStatus();
+    INTERRUPT_GlobalInterruptStatus();
  */
-#define INTERRUPT_GlobalInterruptLowStatus() (INTCON0bits.GIEL)
+#define INTERRUPT_GlobalInterruptStatus() (INTCON0bits.GIE)
+
 
 /**
  * @Param
@@ -613,6 +578,24 @@ void INTERRUPT_Initialize (void);
 /**
    Section: External Interrupt Handlers
  */
+/**
+  @Summary
+    Interrupt Service Routine for EXT_INT0 - INT0 pin
+
+  @Description
+    This ISR will execute whenever the signal on the INT0 pin will transition to the preconfigured state.
+    
+  @Preconditions
+    Interrupt Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+*/
+void INT0_ISR(void);
 
 /**
   @Summary
@@ -708,6 +691,24 @@ extern void (*INT0_InterruptHandler)(void);
 
 */
 void INT0_DefaultInterruptHandler(void);
+/**
+  @Summary
+    Interrupt Service Routine for EXT_INT1 - INT1 pin
+
+  @Description
+    This ISR will execute whenever the signal on the INT1 pin will transition to the preconfigured state.
+    
+  @Preconditions
+    Interrupt Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+*/
+void INT1_ISR(void);
 
 /**
   @Summary
@@ -803,6 +804,24 @@ extern void (*INT1_InterruptHandler)(void);
 
 */
 void INT1_DefaultInterruptHandler(void);
+/**
+  @Summary
+    Interrupt Service Routine for EXT_INT2 - INT2 pin
+
+  @Description
+    This ISR will execute whenever the signal on the INT2 pin will transition to the preconfigured state.
+    
+  @Preconditions
+    Interrupt Manager intializer called
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+*/
+void INT2_ISR(void);
 
 /**
   @Summary

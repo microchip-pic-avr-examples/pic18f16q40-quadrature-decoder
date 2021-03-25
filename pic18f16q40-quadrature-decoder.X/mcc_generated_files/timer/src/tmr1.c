@@ -89,25 +89,17 @@ void Timer1_Initialize(void)
     TMR1H = 0xFF;
     //TMRL 255; 
     TMR1L = 0xFF;
-    
-    // Clearing IF flag before enabling the interrupt.
-    PIR3bits.TMR1IF = 0;
 
-    // Load the TMR value to reload variable
+    // Load the TMR1 value to reload variable
     timer1ReloadVal=(uint16_t)((TMR1H << 8) | TMR1L);
-    
-    // Enabling interrupt.
-    PIE3bits.TMR1IE = 1;
-  
+
     //Set default callback for TMR1 overflow interrupt
     Timer1_OverflowCallbackRegister(Timer1_DefaultOverflowCallback);
-    
-    
-    // Clearing IF flag before enabling the interrupt.
-    PIR3bits.TMR1GIF = 0;
 
-    // Enabling interrupt.
-    PIE3bits.TMR1GIE = 1;
+    //Clear interrupt flags
+    PIR3bits.TMR1IF = 0;
+    PIR3bits.TMR1GIF = 0;
+    
     T1CON = 0x4;
 }
 
@@ -192,7 +184,7 @@ bool Timer1_HasOverflowOccured(void)
     return(PIR3bits.TMR1IF);
 }
 
-void __interrupt(irq(TMR1G),base(8)) Timer1_GATE_ISR()
+void Timer1_GATE_ISR(void)
 {
     // clear the TMR1 interrupt flag
     PIR3bits.TMR1GIF = 0;

@@ -68,7 +68,7 @@ Copyright (c) [2012-2020] Microchip Technology Inc.
 #pragma config PR1WAY = ON     // PRLOCKED One-Way Set Enable->PRLOCKED bit can be cleared and set only once
 
 //CONFIG3
-#pragma config MVECEN = ON     // Multivector Enable->Multi-vector enabled, Vector table used for interrupts
+#pragma config MVECEN = OFF     // Multivector Enable->Interrupt contoller does not use vector table to prioritze interrupts
 #pragma config MCLRE = EXTMCLR     // Master Clear (MCLR) Enable->If LVP = 0, MCLR pin is MCLR; If LVP = 1, RE3 pin function is MCLR 
 #pragma config BOREN = SBORDIS     // Brown-out Reset Enable->Brown-out Reset enabled , SBOREN bit is ignored
 #pragma config PWRTS = PWRT_OFF     // Power-up Timer Selection->PWRT is disabled

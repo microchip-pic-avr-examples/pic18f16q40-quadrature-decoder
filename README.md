@@ -10,10 +10,11 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 
 ## Software Used
 
-* [MPLAB X v5.40](https://www.microchip.com/mplab/mplab-x-ide?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
-* [XC8 v2.30](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-xc-compilers?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
-* [MPLAB Code Configurator (MCC) v5.0.1](https://www.microchip.com/mplab/mplab-code-configurator?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
-* [PIC18F-Q_DFP v1.8.154](https://packs.download.microchip.com/?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
+* [MPLAB X v5.45](https://www.microchip.com/mplab/mplab-x-ide?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
+* [XC8 v2.31](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-xc-compilers?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
+* [MPLAB Code Configurator (MCC) v4.1](https://www.microchip.com/mplab/mplab-code-configurator?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
+  * [Melody Library v1.37.18](https://www.microchip.com/mplab/mplab-code-configurator?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
+* [PIC18F-Q_DFP v1.9.175](https://packs.download.microchip.com/?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
 * [MPLAB Data Visualizer](https://www.microchip.com/mplab/mplab-data-visualizer?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha) or a Serial COM Terminal (*optional*)
 
 ## Hardware Used

@@ -15,7 +15,7 @@
     For individual peripheral handlers please see the peripheral driver for
     all modules selected in the GUI.
     Generation Information :
-        Driver Version    :  2.12
+        Driver Version    :  2.03
     The generated drivers are tested against the following:
         Compiler          :  XC8 v2.20 or later
         MPLAB 	          :  MPLABX v5.45
@@ -57,7 +57,6 @@ Copyright (c) [2012-2020] Microchip Technology Inc.
 
 #include "../../system/interrupt.h"
 #include "../../system/system.h"
-#include <stdbool.h>
 
 void (*INT0_InterruptHandler)(void);
 void (*INT1_InterruptHandler)(void);
@@ -65,25 +64,8 @@ void (*INT2_InterruptHandler)(void);
 
 void  INTERRUPT_Initialize (void)
 {
-    INTCON0bits.IPEN = 1;
-
-    bool state = (unsigned char)GIE;
-    GIE = 0;
-    IVTLOCK = 0x55;
-    IVTLOCK = 0xAA;
-    IVTLOCKbits.IVTLOCKED = 0x00; // unlock IVT
-
-    IVTBASEU = 0;
-    IVTBASEH = 0;
-    IVTBASEL = 8;
-
-    IVTLOCK = 0x55;
-    IVTLOCK = 0xAA;
-    IVTLOCKbits.IVTLOCKED = 0x01; // lock IVT
-
-    GIE = state;
-    // Assign peripheral interrupt priority vectors
-    IPR3bits.TMR2IP = 1;
+    // Disable Interrupt Priority Vectors (16CXXX Compatibility Mode)
+    INTCON0bits.IPEN = 0;
 
     // Clear the interrupt flag
     // Set the external interrupt edge detect
@@ -111,11 +93,20 @@ void  INTERRUPT_Initialize (void)
 
 }
 
-void __interrupt(irq(default),base(8)) Default_ISR()
+void __interrupt() INTERRUPT_InterruptManager (void)
 {
+    // interrupt handler
+    if(PIE3bits.TMR2IE == 1 && PIR3bits.TMR2IF == 1)
+    {
+        Timer2_ISR();
+    }
+    else
+    {
+        //Unhandled Interrupt
+    }
 }
 
-void __interrupt(irq(INT0),base(8)) INT0_ISR()
+void INT0_ISR(void)
 {
     EXT_INT0_InterruptFlagClear();
 
@@ -141,7 +132,7 @@ void INT0_DefaultInterruptHandler(void){
     // add your INT0 interrupt custom code
     // or set custom function using INT0_SetInterruptHandler()
 }
-void __interrupt(irq(INT1),base(8)) INT1_ISR()
+void INT1_ISR(void)
 {
     EXT_INT1_InterruptFlagClear();
 
@@ -167,7 +158,7 @@ void INT1_DefaultInterruptHandler(void){
     // add your INT1 interrupt custom code
     // or set custom function using INT1_SetInterruptHandler()
 }
-void __interrupt(irq(INT2),base(8)) INT2_ISR()
+void INT2_ISR(void)
 {
     EXT_INT2_InterruptFlagClear();
 

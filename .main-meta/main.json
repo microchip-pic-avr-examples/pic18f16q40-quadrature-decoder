@@ -4,27 +4,27 @@
     "content": {
         "metaDataVersion": "1.1.0",
         "name": "com.microchip.mcu8.mplabx.project.pic18f16q40-quadrature-decoder",
-        "version": "1.0.0",
+        "version": "2.0.0",
         "displayName": "Quadrature Decoder with PIC18F16Q40",
         "projectName": "pic18f16q40-quadrature-decoder",
         "shortDescription": "A simple quadrature decoder using mostly hardware peripherals.",
         "ide": {
-            "name": "MPLABX",
-            "semverRange": ">=5.40.0"
+            "name": "MPLAB X",
+            "semverRange": ">=5.45.0"
         },
         "compiler": [
 			{
 				"name": "XC8",
-				"semverRange": "^2.30.0"
+				"semverRange": "^2.31.0"
 			}
 		],
         "dfp": {
             "name": "PIC18F-Q_DFP",
-            "semverRange": "^1.8.154"
+            "semverRange": "^1.9.175"
         },
         "configurator": {
             "name": "MCC",
-            "semverRange": ">=5.0.1"
+            "semverRange": ">=4.1.0"
         },
         "device": {
             "metaDataVersion": "1.0.0",
@@ -59,7 +59,9 @@
             "CLC", "TMR1", "TMR2", "TMR3", "UART"
         ],
         "keywords": [
-            "Quadrature", "Core Independent"
+            "Quadrature",
+            "Core Independent",
+            "Melody"
         ],
 		"additionalData": {
 			"longDescription": {

@@ -15,8 +15,8 @@
     Generation Information :
         Driver Version    :  3.0.0
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v2.30 and above
-        MPLAB             :  MPLAB X v5.45 and above
+        Compiler          :  XC8 v2.31
+        MPLAB             :  MPLAB X v5.45
 */
 
 /*
@@ -59,7 +59,6 @@ Copyright (c) [2012-2020] Microchip Technology Inc.
 
 #include <xc.h>
 #include "../tmr2.h"
-#include "../../system/interrupt.h"
 
 const struct TMR_INTERFACE Timer2 = {
     .Initialize = Timer2_Initialize,
@@ -98,8 +97,8 @@ void Timer2_Initialize(void){
      PIR3bits.TMR2IF = 0;
     // Enabling TMR2 interrupt.
      PIE3bits.TMR2IE = 1;
-    // TCKPS 1:16; TMRON off; TOUTPS 1:1; 
-    T2CON = 0x40;
+    // TCKPS 1:16; TMRON on; TOUTPS 1:1; 
+    T2CON = 0xC0;
 }
 
 void Timer2_ModeSet(Timer2_HLT_MODE mode)
@@ -144,7 +143,7 @@ void Timer2_PeriodCountSet(size_t periodVal)
    PR2 = (uint8_t) periodVal;
 }
 
-void __interrupt(irq(TMR2),base(8)) Timer2_ISR()
+void Timer2_ISR(void)
 {
     // clear the TMR2 interrupt flag
      PIR3bits.TMR2IF = 0;

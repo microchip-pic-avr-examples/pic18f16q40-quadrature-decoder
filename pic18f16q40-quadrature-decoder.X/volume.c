@@ -26,9 +26,19 @@ void initVolumeControl(void)
 
 void adjustVolume(int16_t enc)
 {
-    int8_t t_vol = (int8_t) volume;
+    int16_t t_vol = volume;
 #ifdef LINEAR_VOLUME_CONTROL
-    t_vol += (int8_t)(enc & 0x00FF);
+    
+    if (enc >= 0)
+    {
+        //Positive Encoder Counts
+        t_vol += (enc & 0x00FF);
+    }
+    else
+    {
+        //Negative Encoder Counts
+        t_vol -= ((enc * -1) & 0x00FF);
+    }
 #endif
 #ifdef THRESHOLD_VOLUME_CONTROL
     

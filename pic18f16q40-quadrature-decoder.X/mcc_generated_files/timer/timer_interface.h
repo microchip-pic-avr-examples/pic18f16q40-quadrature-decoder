@@ -3,7 +3,7 @@
     Microchip Technology Inc.
  
   @File Name
-    timer_interface.h
+    TMR_interface.h
  
   @Summary
     This is the generated header file for Timer module interfaces.
@@ -11,7 +11,7 @@
   @Description
     This header file provides interfaces to Timer driver APIs.
     Generation Information :
-        Driver Version    :  1.00
+        Driver Version    :  1.0.0
     The generated drivers are tested against the following:
         MPLAB             :  MPLAB X v5.40
 */

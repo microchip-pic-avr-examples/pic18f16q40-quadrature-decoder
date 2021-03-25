@@ -15,8 +15,8 @@
     Generation Information :
         Driver Version    :  3.0.0
     The generated drivers are tested against the following:
-        Compiler          :  XC8 v2.30 and above
-        MPLAB             :  MPLAB X v5.45 and above
+        Compiler          :  XC8 v2.31
+        MPLAB             :  MPLAB X v5.45
 */
 
 /*
@@ -592,6 +592,14 @@ void Timer2_Write(uint8_t timerVal);
  * @endcode
  */
 void Timer2_PeriodCountSet(size_t periodVal);
+
+/**
+ * @ingroup TMR2_driver
+ * @brief Interrupt Service Routine for TMR2 overflow interrupt.
+ * @param void
+ * @return void
+ */
+void Timer2_ISR(void);
 
 /**
  * @ingroup TMR2_driver

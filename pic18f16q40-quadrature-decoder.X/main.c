@@ -37,11 +37,6 @@ Copyright (c) [2012-2020] Microchip Technology Inc.
 #include "constants.h"
 #include "volume.h"
 
-void __interrupt(irq(U1TX),base(8)) UART_TX_HOTFIX_ISR()
-{
-    UART1_Transmit_ISR();
-}
-
 #define TIMER1_16BIT_ENABLE() do { TMR1CONbits.RD16 = 0b1; } while (0)
 #define TIMER3_16BIT_ENABLE() do { TMR3CONbits.RD16 = 0b1; } while (0)
 
@@ -68,8 +63,7 @@ void main(void)
     Timer2_Start();
         
     // Enable the Global Interrupts
-    INTERRUPT_GlobalInterruptHighEnable();
-    INTERRUPT_GlobalInterruptLowEnable();
+    INTERRUPT_GlobalInterruptEnable();
     
     //Sum of all encoder values in the period
     int encoderCounter = 0;
