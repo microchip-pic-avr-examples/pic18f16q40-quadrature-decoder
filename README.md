@@ -159,10 +159,10 @@ To find the net direction of rotation, subtract the net change of one of the tim
 
 ### CLC Implementation
 
-![CLC1 Image](./images/CLC1.png)  
+![CLC1 Image](./images/clc1.png)  
 *Figure 11 - CLC 1 Implementation*
 
-![CLC1 Image](./images/CLC2.png)  
+![CLC1 Image](./images/clc2.png)  
 *Figure 12 - CLC 2 Implementation*  
 
 ## Summary

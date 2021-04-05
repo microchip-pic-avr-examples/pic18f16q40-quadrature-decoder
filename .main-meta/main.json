@@ -4,7 +4,7 @@
     "content": {
         "metaDataVersion": "1.1.0",
         "name": "com.microchip.mcu8.mplabx.project.pic18f16q40-quadrature-decoder",
-        "version": "2.0.0",
+        "version": "2.0.1",
         "displayName": "Quadrature Decoder with PIC18F16Q40",
         "projectName": "pic18f16q40-quadrature-decoder",
         "shortDescription": "A simple quadrature decoder using mostly hardware peripherals.",
