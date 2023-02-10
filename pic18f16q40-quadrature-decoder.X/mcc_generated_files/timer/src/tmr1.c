@@ -1,66 +1,44 @@
 /**
-  TMR1 Generated Driver File
-
-  @Company
-    Microchip Technology Inc.
-
-  @File Name
-    tmr1.c
-
-  @Summary
-    This is the generated driver implementation file for the TMR1 driver
-
-  @Description
-    This source file provides APIs for driver for TMR1.
-    Generation Information :
-        Driver Version    :  2.11
-    The generated drivers are tested against the following:
-        Compiler          :  XC8 v2.20
-        MPLAB             :  MPLAB X v5.40
+  * TMR1 Generated Driver File
+  *
+  * @file tmr1.c
+  *
+  * @ingroup tmr1
+  *
+  * @brief Driver implementation for the TMR1 driver
+  *
+  * @version TMR1 Driver Version 3.1.0
 */
 /*
-Copyright (c) [2012-2020] Microchip Technology Inc.  
+© [2023] Microchip Technology Inc. and its subsidiaries.
 
-    All rights reserved.
-
-    You are permitted to use the accompanying software and its derivatives 
-    with Microchip products. See the Microchip license agreement accompanying 
-    this software, if any, for additional info regarding your rights and 
-    obligations.
-    
-    MICROCHIP SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" WITHOUT 
-    WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT 
-    LIMITATION, ANY WARRANTY OF MERCHANTABILITY, TITLE, NON-INFRINGEMENT 
-    AND FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT WILL MICROCHIP OR ITS
-    LICENSORS BE LIABLE OR OBLIGATED UNDER CONTRACT, NEGLIGENCE, STRICT 
-    LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER LEGAL EQUITABLE 
-    THEORY FOR ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES INCLUDING BUT NOT 
-    LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES, 
-    OR OTHER SIMILAR COSTS. 
-    
-    To the fullest extend allowed by law, Microchip and its licensors 
-    liability will not exceed the amount of fees, if any, that you paid 
-    directly to Microchip to use this software. 
-    
-    THIRD PARTY SOFTWARE:  Notwithstanding anything to the contrary, any 
-    third party software accompanying this software is subject to the terms 
-    and conditions of the third party's license agreement.  To the extent 
-    required by third party licenses covering such third party software, 
-    the terms of such license will apply in lieu of the terms provided in 
-    this notice or applicable license.  To the extent the terms of such 
-    third party licenses prohibit any of the restrictions described here, 
-    such restrictions will not apply to such third party software.
+    Subject to your compliance with these terms, you may use Microchip 
+    software and any derivatives exclusively with Microchip products. 
+    You are responsible for complying with 3rd party license terms  
+    applicable to your use of 3rd party software (including open source  
+    software) that may accompany Microchip software. SOFTWARE IS ?AS IS.? 
+    NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, APPLY TO THIS 
+    SOFTWARE, INCLUDING ANY IMPLIED WARRANTIES OF NON-INFRINGEMENT,  
+    MERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE. IN NO EVENT 
+    WILL MICROCHIP BE LIABLE FOR ANY INDIRECT, SPECIAL, PUNITIVE, 
+    INCIDENTAL OR CONSEQUENTIAL LOSS, DAMAGE, COST OR EXPENSE OF ANY 
+    KIND WHATSOEVER RELATED TO THE SOFTWARE, HOWEVER CAUSED, EVEN IF 
+    MICROCHIP HAS BEEN ADVISED OF THE POSSIBILITY OR THE DAMAGES ARE 
+    FORESEEABLE. TO THE FULLEST EXTENT ALLOWED BY LAW, MICROCHIP?S 
+    TOTAL LIABILITY ON ALL CLAIMS RELATED TO THE SOFTWARE WILL NOT 
+    EXCEED AMOUNT OF FEES, IF ANY, YOU PAID DIRECTLY TO MICROCHIP FOR 
+    THIS SOFTWARE.
 */
 
 /**
-  Section: Included Files
+ * Section: Included Files
 */
 
 #include <xc.h>
 #include "../tmr1.h"
 
 /**
-  Section: Global Variables Definitions
+ * Section: Global Variables Definitions
 */
 volatile uint16_t timer1ReloadVal;
 void (*Timer1_InterruptHandler)(void);
@@ -77,7 +55,6 @@ static void (*Timer1_OverflowCallback)(void);
 static void Timer1_DefaultOverflowCallback(void);
 
 void Timer1_Initialize(void)
-
 {
     //TGGO done; TGSPM disabled; TGTM disabled; TGPOL low; TMRGE disabled; 
     T1GCON = 0x0;
@@ -85,10 +62,10 @@ void Timer1_Initialize(void)
     T1GATE = 0x0;
     //TMRCS CLC1_OUT; 
     T1CLK = 0xD;
-    //TMRH 255; 
-    TMR1H = 0xFF;
-    //TMRL 255; 
-    TMR1L = 0xFF;
+    //TMRH 0; 
+    TMR1H = 0x0;
+    //TMRL 0; 
+    TMR1L = 0x0;
 
     // Load the TMR1 value to reload variable
     timer1ReloadVal=(uint16_t)((TMR1H << 8) | TMR1L);
@@ -100,7 +77,8 @@ void Timer1_Initialize(void)
     PIR3bits.TMR1IF = 0;
     PIR3bits.TMR1GIF = 0;
     
-    T1CON = 0x4;
+    //TMRON disabled; TRD16 enabled; nTSYNC do_not_synchronize; TCKPS 1:1; 
+    T1CON = 0x6;
 }
 
 void Timer1_Start(void)
@@ -121,6 +99,7 @@ uint16_t Timer1_Read(void)
     uint8_t readValHigh;
     uint8_t readValLow;
     
+    T1CONbits.T1RD16 = 1;
 	
     readValLow = TMR1L;
     readValHigh = TMR1H;
@@ -157,6 +136,11 @@ void Timer1_Reload(void)
     Timer1_Write(timer1ReloadVal);
 }
 
+void Timer1_PeriodCountSet(size_t periodVal)
+{
+   timer1ReloadVal = (uint16_t) periodVal;
+}
+
 void Timer1_StartSinglePulseAcquisition(void)
 {
     T1GCONbits.T1GGO = 1;
@@ -184,7 +168,7 @@ bool Timer1_HasOverflowOccured(void)
     return(PIR3bits.TMR1IF);
 }
 
-void Timer1_GATE_ISR(void)
+void Timer1_GateISR(void)
 {
     // clear the TMR1 interrupt flag
     PIR3bits.TMR1GIF = 0;
