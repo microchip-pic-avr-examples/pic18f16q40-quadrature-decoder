@@ -3,24 +3,18 @@
 
 This code example creates a simple quadrature decoder on the PIC18F16Q40 device. It utilizes 2 of the Configurable Logic Cells (CLCs) and TMR1/2/3 to decode the quadrature output of the rotary encoder. A UART interface is also used for a serial readout.
 
-## Related Documentation
-
-* [PDF Datasheet for PIC18F16Q40](http://ww1.microchip.com/downloads/en/DeviceDoc/PIC18F06-16Q40-Data-Sheet-40002216C.pdf)  
-* [Online Datasheet for PIC18F16Q40](http://onlinedocs.microchip.com/pr/GUID-73B9A526-A001-4F01-ABC8-DBB48A2A12E6-en-US-10/index.html)  
-
 ## Software Used
 
-* [MPLAB X v5.45](https://www.microchip.com/mplab/mplab-x-ide?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
-* [XC8 v2.31](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-xc-compilers?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
-* [MPLAB Code Configurator (MCC) v4.1](https://www.microchip.com/mplab/mplab-code-configurator?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
-  * [Melody Library v1.37.18](https://www.microchip.com/mplab/mplab-code-configurator?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
-* [PIC18F-Q_DFP v1.9.175](https://packs.download.microchip.com/?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
-* [MPLAB Data Visualizer](https://www.microchip.com/mplab/mplab-data-visualizer?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha) or a Serial COM Terminal (*optional*)
+* [MPLAB&reg; X IDE v6.05 or newer](https://www.microchip.com/en-us/tools-resources/develop/mplab-x-ide?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
+* [MPLAB XC8 Compiler v2.40](https://www.microchip.com/en-us/tools-resources/develop/mplab-xc-compilers?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
+* [MPLAB Code Configurator (MCC)](https://www.microchip.com/en-us/tools-resources/configure/mplab-code-configurator?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
+* [PIC18F-Q_DFP v1.15.360](https://packs.download.microchip.com)
+* MPLAB Data Visualizer or a Serial COM Terminal (*optional*)
 
 ## Hardware Used
 
-* [PIC18F16Q40 Curiosity Nano (PN: EV70C97A)](https://www.microchip.com/developmenttools/ProductDetails/EV70C97A?utm_source=GitHub&utm_medium=text&utm_campaign=pic18Q40&utm_content=MCU8_MMTCha_Q40QuadratureDecoderExample)
-* [PIC18F16Q40 Device Information](https://www.microchip.com/wwwproducts/en/PIC18F16Q40?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
+* [PIC18F16Q40 Curiosity Nano (PN: EV70C97A)](https://www.microchip.com/en-us/development-tool/EV70C97A?utm_source=GitHub&utm_medium=text&utm_campaign=pic18Q40&utm_content=MCU8_MMTCha_Q40QuadratureDecoderExample)
+* [PIC18F16Q40 Device Information](https://www.microchip.com/en-us/product/PIC18F16Q40?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
 * Incremental Encoder (In this example, PEC12R-4225F-N0024)
 * Components required for Encoder Filtering Circuit (if applicable)
 

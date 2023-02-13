@@ -2,29 +2,29 @@
     "metaDataVersion": "1.0.0",
     "category": "com.microchip.ide.project",
     "content": {
-        "metaDataVersion": "1.1.0",
+        "metaDataVersion": "1.3.0",
         "name": "com.microchip.mcu8.mplabx.project.pic18f16q40-quadrature-decoder",
-        "version": "2.0.1",
+        "version": "2.0.2",
         "displayName": "Quadrature Decoder with PIC18F16Q40",
         "projectName": "pic18f16q40-quadrature-decoder",
         "shortDescription": "A simple quadrature decoder using mostly hardware peripherals.",
         "ide": {
             "name": "MPLAB X",
-            "semverRange": ">=5.45.0"
+            "semverRange": ">=6.0.5"
         },
         "compiler": [
 			{
 				"name": "XC8",
-				"semverRange": "^2.31.0"
+				"semverRange": "^2.40.0"
 			}
 		],
         "dfp": {
             "name": "PIC18F-Q_DFP",
-            "semverRange": "^1.9.175"
+            "semverRange": "^1.15.360"
         },
         "configurator": {
             "name": "MCC",
-            "semverRange": ">=4.1.0"
+            "semverRange": ">=5.2.2"
         },
         "device": {
             "metaDataVersion": "1.0.0",
@@ -37,31 +37,12 @@
             }
         },
         "author": "Microchip",
-        "subcategories": [
-            "MCC",
-            [
-               "Peripherals", "CLC"
-            ],
-            [
-               "Peripherals", "TMR1"
-            ],
-            [
-               "Peripherals", "TMR2"
-            ],
-            [
-               "Peripherals", "TMR3"
-            ],
-            [
-              "Peripherals", "UART"
-            ]
-        ],
         "peripherals": [
             "CLC", "TMR1", "TMR2", "TMR3", "UART"
         ],
         "keywords": [
-            "Quadrature",
-            "Core Independent",
-            "Melody"
+            "Quadrature Encoder",
+            "Core Independent"
         ],
 		"additionalData": {
 			"longDescription": {
