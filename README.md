@@ -9,7 +9,7 @@ This code example creates a simple quadrature decoder on the PIC18F16Q40 device.
 * [MPLAB XC8 Compiler v2.40](https://www.microchip.com/en-us/tools-resources/develop/mplab-xc-compilers?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
 * [MPLAB Code Configurator (MCC)](https://www.microchip.com/en-us/tools-resources/configure/mplab-code-configurator?utm_campaign=PIC18FQ40&utm_source=GitHub&utm_medium=hyperlink&utm_term=&utm_content=pic18f16q40-quadrature-decoder-MCU8_MMTCha)
 * [PIC18F-Q_DFP v1.15.360](https://packs.download.microchip.com)
-* MPLAB Data Visualizer or a Serial COM Terminal (*optional*)
+* MPLAB Data Visualizer or a Serial COM Terminal (*optional*)  
 
 ## Hardware Used
 
@@ -57,7 +57,7 @@ Depending on the encoder, the specific circuit required for proper operation wil
 
 The encoder used is a mechanical encoder with 24 pulses-per-revolution (PPR). High PPR encoders provide more precise positioning information. However, this example uses it for user interfacing, where the precision of a higher PPR encoder was not needed.
 
-To connect the encoder to the microcontroller, the manufacturer for this encoder (Bourns Inc.) recommends pulling up the outputs of the encoders to Vdd and filtering with an RC filter, an example of which is shown in Figure 3. (See the [Manufacturer's Datasheet](https://www.bourns.com/docs/Product-Datasheets/PEC12R.pdf) for up-to date information.)
+To connect the encoder to the microcontroller, the manufacturer for this encoder (Bourns Inc.) recommends pulling up the outputs of the encoders to V<sub>DD</sub> and filtering with an RC filter, an example of which is shown in Figure 3. (See the [Manufacturer's Datasheet](https://www.bourns.com/docs/Product-Datasheets/PEC12R.pdf) for up-to date information.)
 
 ![Sample Circuit](./images/sampleCircuit.png)  
 *Figure 3 - Implemented Circuit*
